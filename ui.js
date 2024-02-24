@@ -225,6 +225,9 @@ class Messages {
 		this.clearMessagesButton = document.getElementById ("clear_messages_button");
 		this.clearMessagesButton.addEventListener ('click', () => { this.clearMessages(); });
 
+		this.githubButton = document.getElementById ("github_button");
+		this.githubButton.addEventListener ('click', () => { window.open ('https://github.com/f3d0rov/msglen')});
+
 		this.errorMessage = document.getElementById ('error_msg');
 		this.errorMessageText = document.getElementById ("error_msg_text");
 		this.errorMessage.addEventListener ('click', () => { this.focusErrorSource(); });
