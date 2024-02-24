@@ -16,13 +16,14 @@ Probability list structure:
 
 
 function sortProbabilityListDesc (pl) {
-	return pl.toSorted ((a, b) => {
+	// `toSorted` is not a thing in Chromium
+	return pl.concat([]).sort ((a, b) => {
 		return a.probability.lessThan (b.probability);
 	});
 }
 
 function sortProbabilityListAscByIndex (pl) {
-	return pl.toSorted ((a, b) => {
+	return pl.concat([]).sort ((a, b) => {
 		return a.message.index > b.message.index;
 	});
 }
@@ -180,7 +181,7 @@ class ShannonFanoCodingAlgo {
 	}
 
 	icon () {
-		return "/svg/ok.svg";
+		return "/res/ok.svg";
 	}
 
 	work (probabilityList, workspace) {

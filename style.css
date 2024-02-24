@@ -316,12 +316,13 @@ input[type=number] {
 .workspace_table .table_title {
 	font-family: var(--input-font);
 	font-size: 14px;
+	writing-mode: vertical-lr; /* Chrome */
 	writing-mode: sideways-lr;
 	text-align: right;
 	margin-right: 4px;
 
 	flex-shrink: 0;
-	flex-grow: 0
+	flex-grow: 0;
 }
 
 .workspace_table_group_title {

@@ -125,6 +125,7 @@ class TableGroup {
 	createTable (title = "") {
 		return new Table (this.elem, title);
 	}
+
 	getIndexedVariableHTML (indexedVar) {
 		return this.workspace.getIndexedVariableHTML (indexedVar);
 	}
@@ -140,7 +141,9 @@ class Workspace {
 	}
 
 	clear () {
-		this.workspaceElem.innerHTML = "";
+		while (this.workspaceElem.firstChild) {
+			this.workspaceElem.removeChild (this.workspaceElem.firstChild);
+		}
 		this.workspaceElem.dispatchEvent (new Event ("resize"));
 	}
 
