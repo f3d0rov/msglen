@@ -18,13 +18,13 @@ Probability list structure:
 function sortProbabilityListDesc (pl) {
 	// `toSorted` is not a thing in Chromium
 	return pl.concat([]).sort ((a, b) => {
-		return a.probability.lessThan (b.probability);
+		return b.probability.comparedTo (a.probability);
 	});
 }
 
 function sortProbabilityListAscByIndex (pl) {
 	return pl.concat([]).sort ((a, b) => {
-		return a.message.index > b.message.index;
+		return a.message.index - b.message.index;
 	});
 }
 

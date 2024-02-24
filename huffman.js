@@ -99,8 +99,11 @@ class HuffmanCodingAlgo {
 
 	sortBranches (branches) {
 		branches.sort ((a, b) => {
-			return a.totalProbability().lessThan (b.totalProbability());
+			return b.totalProbability().comparedTo (a.totalProbability());
 		});
+		for (let i of branches) {
+			console.log (i.totalProbability().toString());
+		}
 	}
 
 	fuseLastBranches (branches) {
