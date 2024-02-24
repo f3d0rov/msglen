@@ -6,7 +6,7 @@ class HuffmanCodingAlgo {
 	}
 
 	icon () {
-		return "/svg/ok.svg";
+		return "svg/ok.svg";
 	}
 
 	work (probabilityList, workspace) {
