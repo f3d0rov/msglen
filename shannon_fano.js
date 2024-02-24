@@ -181,7 +181,7 @@ class ShannonFanoCodingAlgo {
 	}
 
 	icon () {
-		return "/res/ok.svg";
+		return "https://raw.githubusercontent.com/f3d0rov/msglen/main/res/ok.svg";
 	}
 
 	work (probabilityList, workspace) {

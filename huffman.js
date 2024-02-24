@@ -70,7 +70,7 @@ class HuffmanCodingAlgo {
 	}
 
 	icon () {
-		return "/res/ok.svg";
+		return "https://raw.githubusercontent.com/f3d0rov/msglen/main/res/ok.svg";
 	}
 
 	listBranches (branches, workspace, name = "") {
