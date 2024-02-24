@@ -1,4 +1,19 @@
 
+class MethodAbstraction {
+	name () {
+		throw "Not implemented";
+	}
+
+	icon () {
+		return "res/ok.svg";
+	}
+
+	work (probabilityList, workspace) {
+		throw "Not implemented";
+	}
+}
+
+
 class MessageProbabilityEntry {
 	constructor (prev = null, name = "x", focus = true, suggestVal = 0, nextCallback, deleteCallback, checkMessages) {
 		this.prev = prev;
@@ -20,6 +35,7 @@ class MessageProbabilityEntry {
 		this.checkMessagesCallback = checkMessages;
 
 		this.createSelf (name, focus, suggestVal);
+		this.name = name;
 	}
 
 	createSelf (name, focus, suggestVal) {
@@ -177,6 +193,28 @@ class MessageProbabilityEntry {
 			return { error: "Ошибка", obj: this}; // Hopefully never occurs
 		}
 	}
+
+	getNameAndIndex () {
+		return {
+			name: this.name,
+			index: this.index
+		};
+	}
+
+	getProbabilityList () {
+		let list = [];
+		
+		if (this.prev) {
+			list = this.prev.getProbabilityList();
+		}
+
+		list.push ({
+			message: this.getNameAndIndex(),
+			probability: this.value()
+		});
+
+		return list;
+	}
 }
 
 class Messages {
@@ -192,6 +230,12 @@ class Messages {
 		this.lastMessage = null;
 	}
 	
+	nextMessage () {
+		let currentTotal = this.lastMessage.prevTotal();
+		if (currentTotal.equals (new Decimal (1)) == false) this.addMessage ();
+		else document.activeElement.blur();
+	}
+
 	addMessage (focus = true) {
 		let suggestVal = new Decimal (0);
 
@@ -208,7 +252,7 @@ class Messages {
 			"x",
 			focus,
 			suggestVal,
-			() => { this.addMessage();},
+			() => { this.nextMessage();},
 			(last) => { this.setNewRoot(last);},
 			() => { this.checkMessages(); }
 		);
@@ -222,6 +266,11 @@ class Messages {
 	}
 
 	checkMessages () {
+		if (this.lastMessage == null) {
+			this.setMistake ({ error: "Задайте вероятности", obj: null});
+			return;
+		}
+
 		let lastMistake = this.lastMessage.getPrevMistake();
 		if (lastMistake != null) {
 			this.setMistake (lastMistake);
@@ -257,16 +306,66 @@ class Messages {
 	focusErrorSource () {
 		if (this.errorSource != null) this.errorSource.focus();
 	}
+
+	addButton (name, icon, action) {
+		const template = document.getElementById ("button_template");
+		
+		let newButton = template.cloneNode (true);
+		newButton.id = "";
+		newButton.classList.remove ("template");
+		newButton.querySelector (".add_prob_button_text").innerHTML = name;
+		newButton.querySelector (".prob_edit_icon").setAttribute ("src", icon);
+		newButton.addEventListener ("click", action);
+
+		template.parentElement.insertBefore (newButton, template);
+	}
+
+	getProbabilityList () {
+		if (this.lastMessage == null) return []
+		return this.lastMessage.getProbabilityList();
+	}
+}
+
+class Workspace {
+	clear () {
+
+	}
 }
 
 class AlgoUI {
 	constructor () {
 		this.messages = new Messages;
+		this.workspace = new Workspace;
+	}
+
+	registerMethod (method) {
+		this.messages.addButton (method.name(), method.icon(), () => { this.callMehtod (method); });
+	}
+
+	callMehtod (method) {
+		if (this.messages.checkMessages()) {
+			this.workspace.clear();
+			method.work (this.messages.getProbabilityList(), this.workspace);
+		}
 	}
 }
 
+var algoUI;
+
 function setupUI () {
-	var algoUI = new AlgoUI;
+	algoUI = new AlgoUI;
+}
+
+async function waitForAlgoUI () {
+	do {
+		if (algoUI != undefined) return;
+		await new Promise (resolve => setTimeout (resolve, 10)); // Wait for 10ms
+	} while (1);
+}
+
+async function registerMethod (method) {
+	await waitForAlgoUI();
+	algoUI.registerMethod (method);
 }
 
 window.addEventListener (
