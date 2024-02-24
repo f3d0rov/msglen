@@ -7,6 +7,9 @@
 	--background-bad: #391111;
 	--background-major: #292929;
 	--background-minor: #353841;
+
+	--bg-highlight-even: rgb(17, 51, 120);
+	--bg-highlight-odd: rgb(30, 71, 153);
 }
 
 .noselect {
@@ -257,3 +260,124 @@ input[type=number] {
 	z-index: 100;
 }
 
+.workspace_indexed_var {
+	display: inline-flex;
+	flex-flow: row;
+	align-items: end;
+
+	width: fit-content;
+}
+
+.ws_var {
+	font-size: 22px;
+}
+
+.ws_index {
+	font-size: 10px;
+}
+
+.workspace_space {
+	width: 100%;
+	padding: 10px;
+
+	box-sizing: border-box;
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+}
+
+.workspace_table {
+	display: inline-flex;
+	flex-flow: row;
+
+	margin: 5px;
+	box-sizing: border-box;
+}
+
+.workspace_table.spacer {
+	margin-top: 29px;
+}
+
+.workspace_table_group {
+	display: inline-flex;
+	flex-flow: column;
+
+	justify-content: start;
+	align-items: start;
+	margin: 5px;
+	box-sizing: border-box;
+}
+
+
+.workspace_table .table_title {
+	font-family: var(--input-font);
+	font-size: 14px;
+	writing-mode: sideways-lr;
+	text-align: right;
+	margin-right: 4px;
+}
+
+.workspace_table_group_title {
+	font-family: var(--input-font);
+	font-size: 14px;
+	text-align: right;
+	margin-right: 4px;
+	align-self: center;
+}
+
+.workspace_table_table {
+	width: fit-content;
+	height: fit-content;
+}
+
+.workspace_table_table, .workspace_table_table tr, .workspace_table_table td, .workspace_table_table th {
+	font-family: var(--input-font);
+	border: solid;
+	border-width: 2px;
+	border-color: var(--foreground-major);
+	border-collapse: collapse;
+
+	flex-shrink: 0;
+	flex-grow: 0;
+}
+
+.workspace_table_table th {
+	background-color: var(--foreground-minor);
+	padding: 6px;
+
+	min-width: 50px;
+	font-weight: normal;
+}
+
+.workspace_table_table td {
+	padding: 6px;
+	min-width: 50px;
+	text-align: center;
+
+	transition: backdrop-filter 0.2s ease-in-out;
+}
+
+.workspace_table_table tr:nth-child(even) {
+	background-color: var(--background-major);
+}
+
+.workspace_table_table tr:nth-child(odd) {
+	background-color: var(--background-minor);
+}
+
+.workspace_table_table tr.highlighted:nth-child(even) {
+	background-color: var(--bg-highlight-even);
+}
+
+.workspace_table_table tr.highlighted:nth-child(odd) {
+	background-color: var(--bg-highlight-odd);
+}
+
+.workspace_table_table tr.separator_after td, .workspace_table_table tr.separator_after th {
+	border-bottom: solid 4px var(--foreground-minor);
+}
+
+.workspace_table_table tr:hover td {
+	backdrop-filter: brightness(1.2);
+}

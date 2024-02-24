@@ -241,7 +241,7 @@ class Messages {
 
 		if (this.lastMessage != null) {
 			let currentTotal = this.lastMessage.prevTotal();
-			console.log (`Total: ${currentTotal}`)
+			// console.log (`Total: ${currentTotal}`)
 			// If current total in (0, 1)
 			if (currentTotal.lessThan (new Decimal (1)) && currentTotal.greaterThan (new Decimal (0)))
 				suggestVal = new Decimal (1).minus (currentTotal); 
@@ -326,24 +326,6 @@ class Messages {
 	}
 }
 
-class Workspace {
-	constructor () {
-		this.workspaceElem = document.getElementById ("workspace_space");
-		this.workspaceLoadingElem = document.getElementById ("loading_overlay");
-	}
-
-	clear () {
-		this.workspaceElem.innerHTML = "";
-	}
-
-	loading () {
-		this.workspaceLoadingElem.classList.remove ("template");
-	}
-
-	loaded () {
-		this.workspaceLoadingElem.classList.add ("template");
-	}
-}
 
 class AlgoUI {
 	constructor () {

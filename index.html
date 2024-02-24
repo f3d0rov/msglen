@@ -11,8 +11,9 @@
 
 	<body>
 		<script src = "decimal.js"></script>
-		<script src = "algo.js"></script>
+		<script src = "workspace.js"></script>
 		<script src = "ui.js"></script>
+		<script src = "algo.js"></script>
 
 		<div class = "msglen_layout">
 			<div id = "probs_box">
@@ -29,7 +30,7 @@
 	
 				<div id = "add_prob_button" class = "add_prob_button prob_entry_width">
 					<img src = "res/add.svg" class = "prob_edit_icon">
-					<div class = "add_prob_button_text noselect"> Добавить </div> 
+					<div class = "add_prob_button_text noselect"> Добавить p(x) </div> 
 				</div>
 				
 				<div id = "error_msg" class = "add_prob_button prob_entry_width template">
@@ -48,8 +49,23 @@
 					<img src = "res/spinner.svg" class = "workspace_spinner">
 				</div>
 
+				<span class = "workspace_indexed_var template" id = "workspace_indexed_var_template">
+					<span class = "ws_var"> f </span>
+					<span class = "ws_index"> 3 </span>
+				</span>
+
+				<div class = "workspace_table template" id = "workspace_table_template">
+					<div class = "table_title"></div>
+					<table class = "workspace_table_table">
+					</table>
+				</div>
+
+				<div class = "workspace_table_group template" id = "workspace_table_group_template">
+					<div class = "workspace_table_group_title"></div>
+				</div>
+
 				<div class = "workspace_space" id = "workspace_space">
-					Hello, world!
+
 				</div>
 			</div>
 		</div>
