@@ -13,8 +13,10 @@
 		<script src = "decimal.js"></script>
 		<script src = "workspace.js"></script>
 		<script src = "ui.js"></script>
-		<script src = "algo.js"></script>
+		<script src = "shannon_fano.js"></script>
 
+		<!-- ??? Layout gets squished when generating new, longer sequences -->
+		<!-- !!! No clue as to why -->
 		<div class = "msglen_layout">
 			<div id = "probs_box">
 				<div id = "prob_template" class = "prob_entry prob_entry_width template">
@@ -35,6 +37,11 @@
 				
 				<div id = "error_msg" class = "add_prob_button prob_entry_width template">
 					<div id = "error_msg_text" class = "noselect"> ??? </div> 
+				</div>
+
+				<div id = "clear_messages_button" class = "add_prob_button prob_entry_width">
+					<img src = "res/clear.svg" class = "prob_edit_icon">
+					<div class = "add_prob_button_text noselect"> Очистить </div> 
 				</div>
 				
 				<div id = "button_template" class = "add_prob_button prob_entry_width template">

@@ -122,17 +122,21 @@ class ShannonFanoTreeNode {
 		// one to the right.
 		
 		for (let i = this.a; i <= this.b; i++) {
-			let thisProb = this.pl [i].probability;
-			console.log ("i: " + i + ", p: " + thisProb.toString());
-			if (currentSum.plus (thisProb).greaterThanOrEqualTo (idealCenter)) {
-				// Crossed the middle - return current element number.
-				return i;
-			}
+			let thisProb = this.pl [i].probability; // This element
+			let diffNow = idealCenter.minus (currentSum);
+			let diffAfter = diffNow.minus (thisProb);
 
+
+			// If taking this element means getting further away from the middle (or staying the same distance)
+			if (diffAfter.absoluteValue().greaterThanOrEqualTo (diffNow.absoluteValue()))
+				// Having this element would mess things up, means: the previous is the last we take.
+				return i - 1;
+
+			// Increment the `currentSum`
 			currentSum = currentSum.plus (thisProb);
 		}
 
-		throw ("ShannonFanoTreeNode::lastLeft: reached the end");
+		throw ("ShannonFanoTreeNode::lastLeft: failed to find the middle");
 	}
 
 	createNextNode (a, b) {
@@ -241,24 +245,9 @@ class ShannonFanoCodingAlgo {
 	}
 }
 
-class HuffmanCodingAlgo {
-	name () {
-		return "Хаффман";
-	}
-
-	icon () {
-		return "/svg/ok.svg";
-	}
-
-	work (probabilityList, workspace) {
-		console.log (probabilityList);
-	}
-}
-
 window.addEventListener (
 	'load',
 	() => {
 		registerMethod (new ShannonFanoCodingAlgo());
-		registerMethod (new HuffmanCodingAlgo());
 	}
 );

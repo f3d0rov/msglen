@@ -134,10 +134,14 @@ class Workspace {
 	constructor () {
 		this.workspaceElem = document.getElementById ("workspace_space");
 		this.workspaceLoadingElem = document.getElementById ("loading_overlay");
+		window.addEventListener ('resize', () => {
+			this.workspaceElem.dispatchEvent (new Event ("resize"));
+		})
 	}
 
 	clear () {
 		this.workspaceElem.innerHTML = "";
+		this.workspaceElem.dispatchEvent (new Event ("resize"));
 	}
 
 	loading () {
@@ -145,8 +149,8 @@ class Workspace {
 	}
 
 	loaded () {
-		this.workspaceLoadingElem.classList.add ("template");
 		this.workspaceElem.dispatchEvent (new Event ("resize"));
+		this.workspaceLoadingElem.classList.add ("template");
 	}
 
 	createTable (title = "") {

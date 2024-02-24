@@ -222,6 +222,9 @@ class Messages {
 		this.addMessageButton = document.getElementById ("add_prob_button");
 		this.addMessageButton.addEventListener ('click', () => { this.addMessage(); });
 
+		this.clearMessagesButton = document.getElementById ("clear_messages_button");
+		this.clearMessagesButton.addEventListener ('click', () => { this.clearMessages(); });
+
 		this.errorMessage = document.getElementById ('error_msg');
 		this.errorMessageText = document.getElementById ("error_msg_text");
 		this.errorMessage.addEventListener ('click', () => { this.focusErrorSource(); });
@@ -259,6 +262,12 @@ class Messages {
 		this.lastMessage = newMessage;
 
 		this.checkMessages();
+	}
+	
+	clearMessages () {
+		while (this.lastMessage != null) {
+			this.lastMessage.deleteSelf ();
+		}
 	}
 
 	setNewRoot (root) {

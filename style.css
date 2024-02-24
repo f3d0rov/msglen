@@ -10,6 +10,7 @@
 
 	--bg-highlight-even: rgb(17, 51, 120);
 	--bg-highlight-odd: rgb(30, 71, 153);
+	--table-split: #ff162c;
 }
 
 .noselect {
@@ -285,6 +286,8 @@ input[type=number] {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: flex-start;
+
+	gap: 1px;
 }
 
 .workspace_table {
@@ -316,6 +319,9 @@ input[type=number] {
 	writing-mode: sideways-lr;
 	text-align: right;
 	margin-right: 4px;
+
+	flex-shrink: 0;
+	flex-grow: 0
 }
 
 .workspace_table_group_title {
@@ -329,6 +335,8 @@ input[type=number] {
 .workspace_table_table {
 	width: fit-content;
 	height: fit-content;
+	flex-shrink: 0;
+	flex-grow: 0;
 }
 
 .workspace_table_table, .workspace_table_table tr, .workspace_table_table td, .workspace_table_table th {
@@ -375,7 +383,7 @@ input[type=number] {
 }
 
 .workspace_table_table tr.separator_after td, .workspace_table_table tr.separator_after th {
-	border-bottom: solid 4px var(--foreground-minor);
+	border-bottom: solid 4px var(--table-split);
 }
 
 .workspace_table_table tr:hover td {
