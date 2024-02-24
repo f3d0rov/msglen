@@ -4,6 +4,7 @@
 
 	--foreground-major: #ffffff;
 	--foreground-minor: #646cbd;
+	--background-bad: #391111;
 	--background-major: #292929;
 	--background-minor: #353841;
 }
@@ -32,6 +33,12 @@ input {
 
 	border: none;
 	border-radius: 4px;
+
+	transition: background-color 0.2s ease-in-out;
+}
+
+input.bad {
+	background-color: var(--background-bad);
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -104,6 +111,10 @@ input[type=number] {
 	align-items: end;
 
 	width: fit-content;
+}
+
+.prob_op {
+	font-size: 26px;
 }
 
 .prob_var {
@@ -190,4 +201,8 @@ input[type=number] {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+}
+
+#error_msg {
+	background-color: var(--background-bad);
 }

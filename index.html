@@ -10,6 +10,7 @@
 	</head>
 
 	<body>
+		<script src = "decimal.js"></script>
 		<script src = "algo.js"></script>
 		<script src = "ui.js"></script>
 
@@ -17,8 +18,10 @@
 			<div id = "probs_box">
 				<div id = "prob_template" class = "prob_entry prob_entry_width template">
 					<div class = "prob_name">
+						<span class = "prob_op"> p( </span>
 						<span class = "prob_var"> x </span>
 						<span class = "prob_index"> 1 </span>
+						<span class = "prob_op"> ) </span>
 					</div>
 					<input class = "prob_input" step="any" type="text" value="0.0">
 					<img src = "res/remove.svg" class = "prob_edit_icon remove_prob_button">
@@ -27,6 +30,10 @@
 				<div id = "add_prob_button" class = "add_prob_button prob_entry_width">
 					<img src = "res/add.svg" class = "prob_edit_icon">
 					<div class = "add_prob_button_text"> Добавить </div> 
+				</div>
+				
+				<div id = "error_msg" class = "add_prob_button prob_entry_width template">
+					<div id = "error_msg_text"> ??? </div> 
 				</div>
 				
 				<div id = "calc_huffman" class = "add_prob_button prob_entry_width">
