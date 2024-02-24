@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> Расчет средней длины сообщения </title>
+
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+	</head>
+
+	<body>
+		<script src = "algo.js"></script>
+		<script src = "ui.js"></script>
+
+		<div class = "msglen_layout">
+			<div id = "probs_box">
+				<div id = "prob_template" class = "prob_entry prob_entry_width template">
+					<div class = "prob_name">
+						<span class = "prob_var"> x </span>
+						<span class = "prob_index"> 1 </span>
+					</div>
+					<input class = "prob_input" step="any" type="text" value="0.0">
+					<img src = "res/remove.svg" class = "prob_edit_icon remove_prob_button">
+				</div>
+	
+				<div id = "add_prob_button" class = "add_prob_button prob_entry_width">
+					<img src = "res/add.svg" class = "prob_edit_icon">
+					<div class = "add_prob_button_text"> Добавить </div> 
+				</div>
+				
+				<div id = "calc_huffman" class = "add_prob_button prob_entry_width">
+					<img src = "res/ok.svg" class = "prob_edit_icon">
+					<div class = "add_prob_button_text"> Хаффман </div> 
+				</div>
+				
+				<div id = "calc_shannon" class = "add_prob_button prob_entry_width">
+					<img src = "res/ok.svg" class = "prob_edit_icon">
+					<div class = "add_prob_button_text"> Шеннон-Фано </div> 
+				</div>
+			</div>
+
+			<div class = "msglen_workspace">
+
+			</div>
+		</div>
+	</body>
+</html>
