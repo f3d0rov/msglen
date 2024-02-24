@@ -29,21 +29,28 @@
 	
 				<div id = "add_prob_button" class = "add_prob_button prob_entry_width">
 					<img src = "res/add.svg" class = "prob_edit_icon">
-					<div class = "add_prob_button_text"> Добавить </div> 
+					<div class = "add_prob_button_text noselect"> Добавить </div> 
 				</div>
 				
 				<div id = "error_msg" class = "add_prob_button prob_entry_width template">
-					<div id = "error_msg_text"> ??? </div> 
+					<div id = "error_msg_text" class = "noselect"> ??? </div> 
 				</div>
 				
 				<div id = "button_template" class = "add_prob_button prob_entry_width template">
 					<img src = "res/ok.svg" class = "prob_edit_icon">
-					<div class = "add_prob_button_text"> ??? </div> 
+					<div class = "add_prob_button_text noselect"> ??? </div> 
 				</div>
 			</div>
 
 			<div class = "msglen_workspace">
+				<div class = "workspace_loading template" id = "loading_overlay">
+					<div class = "workspace_loading_bg"></div>
+					<img src = "res/spinner.svg" class = "workspace_spinner">
+				</div>
 
+				<div class = "workspace_space" id = "workspace_space">
+					Hello, world!
+				</div>
 			</div>
 		</div>
 	</body>

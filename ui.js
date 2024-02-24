@@ -327,8 +327,21 @@ class Messages {
 }
 
 class Workspace {
-	clear () {
+	constructor () {
+		this.workspaceElem = document.getElementById ("workspace_space");
+		this.workspaceLoadingElem = document.getElementById ("loading_overlay");
+	}
 
+	clear () {
+		this.workspaceElem.innerHTML = "";
+	}
+
+	loading () {
+		this.workspaceLoadingElem.classList.remove ("template");
+	}
+
+	loaded () {
+		this.workspaceLoadingElem.classList.add ("template");
 	}
 }
 
@@ -344,8 +357,10 @@ class AlgoUI {
 
 	callMehtod (method) {
 		if (this.messages.checkMessages()) {
+			this.workspace.loading();
 			this.workspace.clear();
 			method.work (this.messages.getProbabilityList(), this.workspace);
+			this.workspace.loaded();
 		}
 	}
 }
