@@ -216,7 +216,7 @@ input[type=number] {
 	background-color: #646cbd;
 }
 
-#error_msg {
+.error_msg {
 	background-color: var(--background-bad);
 }
 

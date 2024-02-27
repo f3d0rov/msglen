@@ -243,7 +243,9 @@ class Messages {
 
 		this.lastMessage = null;
 
+		this.multiplicationError = document.getElementById ("mult_error_msg");
 		this.multiplicationInput = document.getElementById ("symbol_multiply_input");
+		this.multiplicationInput.addEventListener ('input', () => { this.checkMultiplication(); });
 	}
 	
 	nextMessage () {
@@ -342,10 +344,25 @@ class Messages {
 		template.parentElement.insertBefore (newButton, template);
 	}
 
+	setMultiplicationError (enable = true) {
+		if (enable) {
+			this.multiplicationError.classList.remove ("template");
+		} else {
+			this.multiplicationError.classList.add ("template");
+		}
+	}
+
 	checkMultiplication () {
 		let v = this.multiplicationInput.value;
+
+		if (v == '') {
+			this.setMultiplicationError();
+			return false;
+		}
+
 		for (let i of v) if (i < '0' || i > '9') {
 				this.multiplicationInput.classList.add ("bad");
+				this.setMultiplicationError ();
 				return false;
 		}
 
@@ -353,10 +370,12 @@ class Messages {
 
 		if (intVal < 1) {
 			this.multiplicationInput.classList.add ("bad");
+			this.setMultiplicationError();
 			return false;
 		}
 
 		this.multiplicationInput.classList.remove ("bad");
+		this.setMultiplicationError (false);
 		return true;
 	}
 
