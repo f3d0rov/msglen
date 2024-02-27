@@ -82,12 +82,14 @@ class Table {
 		for (let i of titleList) {
 			this.header.addHeader (i);
 		}
+		this.update();
 	}
 
 	addLine (values) {
 		this.lines.push (
 			new TableLine (this.root, values)
 		);
+		this.update();
 	}
 
 	size () {
@@ -105,6 +107,11 @@ class Table {
 			console.log (lineNumber);
 			this.lines [lineNumber - 1].setSeparator (enable);
 		}
+	}
+
+	update () {
+		this.root.dispatchEvent (new Event ('resize'));
+		this.elem.dispatchEvent (new Event ('resize'));
 	}
 }
 
@@ -147,8 +154,9 @@ class Workspace {
 		this.workspaceElem.dispatchEvent (new Event ("resize"));
 	}
 
-	loading () {
+	async loading () {
 		this.workspaceLoadingElem.classList.remove ("template");
+		await new Promise (resolve => setTimeout (resolve, 10)); // Wait for 10ms
 	}
 
 	loaded () {

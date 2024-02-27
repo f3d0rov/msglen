@@ -1,4 +1,5 @@
 
+
 class MethodAbstraction {
 	name () {
 		throw "Not implemented";
@@ -11,6 +12,12 @@ class MethodAbstraction {
 	work (probabilityList, workspace) {
 		throw "Not implemented";
 	}
+}
+
+
+function deepCopy (obj) {
+	// This is a fucking atrocity
+	return JSON.parse (JSON.stringify (obj));
 }
 
 
@@ -217,6 +224,7 @@ class MessageProbabilityEntry {
 	}
 }
 
+
 class Messages {
 	constructor () {
 		this.addMessageButton = document.getElementById ("add_prob_button");
@@ -234,6 +242,8 @@ class Messages {
 		this.errorSource = null;
 
 		this.lastMessage = null;
+
+		this.multiplicationInput = document.getElementById ("symbol_multiply_input");
 	}
 	
 	nextMessage () {
@@ -332,9 +342,73 @@ class Messages {
 		template.parentElement.insertBefore (newButton, template);
 	}
 
+	checkMultiplication () {
+		let v = this.multiplicationInput.value;
+		for (let i of v) if (i < '0' || i > '9') {
+				this.multiplicationInput.classList.add ("bad");
+				return false;
+		}
+
+		let intVal = parseInt (v);
+
+		if (intVal < 1) {
+			this.multiplicationInput.classList.add ("bad");
+			return false;
+		}
+
+		this.multiplicationInput.classList.remove ("bad");
+		return true;
+	}
+
+	getMultiplication () {
+		if (this.checkMultiplication()) return parseInt (this.multiplicationInput.value);
+		return null;
+	}
+
+	flatListMultiplication (a, b) {
+		let result = []
+		let varName = 'y';
+		let indexCounter = 1;
+		for (let i of a) {
+			for (let j of b) {
+				result.push (
+					{
+						message: {
+							name: varName,
+							index: indexCounter++
+						},
+						probability: i.probability.times (j.probability)
+					}
+				);
+			}
+		}
+		return result;
+	}
+
+	raiseProbabilityListToPower (pl, power) {
+		if (power == 0) return [];
+		if (power == 1) return pl;
+
+		let result = deepCopy (pl);
+		for (let i of result) {
+			i.probability = new Decimal (i.probability);
+		}
+
+		for (let i = 1; i < power; i++) {
+			result = this.flatListMultiplication (result, pl);
+		}
+		
+		return result;
+	}
+
 	getProbabilityList () {
-		if (this.lastMessage == null) return []
-		return this.lastMessage.getProbabilityList();
+		if (this.lastMessage == null) return [];
+		if (this.checkMultiplication() == false) {
+			return [];
+		}
+		let probList = this.lastMessage.getProbabilityList();
+		let power = this.getMultiplication();
+		return this.raiseProbabilityListToPower (probList, power);
 	}
 }
 
@@ -349,13 +423,20 @@ class AlgoUI {
 		this.messages.addButton (method.name(), method.icon(), () => { this.callMehtod (method); });
 	}
 
-	callMehtod (method) {
+	async callMehtod (method) {
 		if (this.messages.checkMessages()) {
-			this.workspace.loading();
 			this.workspace.clear();
-			method.work (this.messages.getProbabilityList(), this.workspace);
-			this.workspace.loaded();
+			await this.workspace.loading();
+			this.doWork (method).then (
+				() => {
+					this.workspace.loaded();
+				}
+			);
 		}
+	}
+
+	async doWork (method) {
+		method.work (this.messages.getProbabilityList(), this.workspace);
 	}
 }
 
