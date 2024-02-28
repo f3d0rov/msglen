@@ -31,6 +31,10 @@ class HuffmanTreeNode {
 		return workspace.getIndexedVariableHTML (this.getVarIndex());
 	}
 
+	varName () {
+		return this.leftBranch.varName();
+	}
+
 	getCodeNames (myName = "") {
 		return this.leftBranch.getCodeNames (myName + "0").concat (this.rightBranch.getCodeNames (myName + "1"));
 	}
@@ -52,6 +56,11 @@ class HuffmanTreeLeaf {
 	name (workspace) {
 		return workspace.getIndexedVariableHTML (this.getVarIndex());
 	}
+	
+	varName () {
+		return this.message.message.name;
+	}
+
 
 	getCodeNames (myName = "") {
 		return [
@@ -77,10 +86,11 @@ class HuffmanCodingAlgo {
 		if (branches.length == 0) return;
 
 		let newTable = workspace.createTable (name);
+		let varName = branches[0].varName();
 
 		newTable.addHeader ([
-			workspace.getIndexedVariableHTML ({name: 'x', index: "i"}),
-			"p(" + workspace.getIndexedVariableHTML ({name: 'x', index: "i"}) + ")"
+			workspace.getIndexedVariableHTML ({name: varName, index: "i"}),
+			"p(" + workspace.getIndexedVariableHTML ({name: varName, index: "i"}) + ")"
 		]);
 
 		for (let i of branches) {
@@ -119,9 +129,10 @@ class HuffmanCodingAlgo {
 		let codes = topNode.getCodeNames ();
 		let sortedCodes = sortProbabilityListAscByIndex (codes);
 		let codeTable = workspace.createTable ("Кодировка");
+		let varName = getVarName (codes);
 		codeTable.addHeader ([
-			workspace.getIndexedVariableHTML ({name: "x", index: "i"}),
-			"p(" + workspace.getIndexedVariableHTML ({name: "x", index: "i"}) + ")",
+			workspace.getIndexedVariableHTML ({name: varName, index: "i"}),
+			"p(" + workspace.getIndexedVariableHTML ({name: varName, index: "i"}) + ")",
 			"Код",
 			"l"
 		]);
@@ -140,7 +151,7 @@ class HuffmanCodingAlgo {
 	
 	work (probabilityList, workspace) {
 		// Display the provided values
-		createTableForProbabilityList (probabilityList, "Заданные значения p(x)", workspace);
+		createTableForProbabilityList (probabilityList, `Заданные значения p(${getVarName (probabilityList)})`, workspace);
 
 		// Sort the provided values
 		let sorted = sortProbabilityListDesc (probabilityList);

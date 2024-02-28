@@ -204,9 +204,10 @@ class ShannonFanoCodingAlgo {
 		let codes = tree.getLeafCodes ();
 		let sortedCodes = sortProbabilityListAscByIndex (codes);
 		let codeTable = workspace.createTable ("Кодировка");
+		let varName = getVarName (codes);
 		codeTable.addHeader ([
-			workspace.getIndexedVariableHTML ({name: "x", index: "i"}),
-			"p(" + workspace.getIndexedVariableHTML ({name: "x", index: "i"}) + ")",
+			workspace.getIndexedVariableHTML ({name: varName, index: "i"}),
+			"p(" + workspace.getIndexedVariableHTML ({name: varName, index: "i"}) + ")",
 			"Код",
 			"l"
 		]);

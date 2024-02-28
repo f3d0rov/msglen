@@ -114,6 +114,11 @@ class Table {
 	}
 }
 
+function getVarName (pl) {
+	if (pl.length == 0) return "x";
+	else return pl [0].message.name;
+}
+
 class TableGroup {
 	constructor (workspace, title) {
 		this.root = workspace.workspaceElem;
