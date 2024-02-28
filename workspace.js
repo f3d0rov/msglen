@@ -104,7 +104,6 @@ class Table {
 		if (lineNumber == 0) {
 			this.header.setSeparator (enable);
 		} else {
-			console.log (lineNumber);
 			this.lines [lineNumber - 1].setSeparator (enable);
 		}
 	}
@@ -145,6 +144,9 @@ class Workspace {
 		window.addEventListener ('resize', () => {
 			this.workspaceElem.dispatchEvent (new Event ("resize"));
 		})
+
+		this.backToMessagesButton = document.getElementById ("show_messages_button");
+		this.backToMessagesButton.addEventListener ('click', () => { this.callReturnCallback(); });
 	}
 
 	clear () {
@@ -161,6 +163,7 @@ class Workspace {
 
 	loaded () {
 		this.workspaceElem.dispatchEvent (new Event ("resize"));
+		document.dispatchEvent (new Event ("resize"));
 		this.workspaceLoadingElem.classList.add ("template");
 	}
 
@@ -181,5 +184,20 @@ class Workspace {
 		copy.id = "";
 		copy.classList.remove ("template");
 		return copy.outerHTML;
+	}
+
+	showSelf (returnCallback) {
+		this.returnCallback = returnCallback;
+		this.backToMessagesButton.classList.add ("shown");
+		this.workspaceElem.classList.remove ("mobile_out_of_focus");
+	}
+
+	callReturnCallback () {
+		this.returnCallback();
+	}
+
+	hideSelf () {
+		this.backToMessagesButton.classList.remove ("shown");
+		this.workspaceElem.classList.add ("mobile_out_of_focus");
 	}
 }

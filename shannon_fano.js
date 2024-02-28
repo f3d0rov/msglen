@@ -53,7 +53,6 @@ function createTableForProbabilityList (pl, name, workspace) {
 class ShannonFanoTreeLeaf {
 	constructor (pl, i) {
 		this.leaf = pl.slice (i, i + 1);
-		console.log ("leaf: " + i);
 	}
 
 	isLeaf () {
@@ -91,8 +90,6 @@ class ShannonFanoTreeNode {
 		this.pl = pl;
 		this.a = a;
 		this.b = b;
-
-		console.log (a + ", " + b);
 
 		this.slice = pl.slice (a, b + 1);
 

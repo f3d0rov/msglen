@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 		<title> Расчет средней длины сообщения </title>
 
 		<link rel="stylesheet" type="text/css" href="style.css">
@@ -64,12 +66,18 @@
 					<img src = "res/github-mark-white.svg" class = "prob_edit_icon">
 					<div class = "add_prob_button_text noselect"> f3d0rov/msglen </div> 
 				</div>
+
+				<div id = "probs_box_padder" class = "prob_entry_width"></div>
 			</div>
 
 			<div class = "msglen_workspace">
 				<div class = "workspace_loading template" id = "loading_overlay">
 					<div class = "workspace_loading_bg"></div>
 					<img src = "res/spinner.svg" class = "workspace_spinner">
+				</div>
+
+				<div id = "show_messages_button" class = "">
+					<img src="res/back.svg" class = "show_messages_button_icon">
 				</div>
 
 				<span class = "workspace_indexed_var template" id = "workspace_indexed_var_template">
@@ -88,7 +96,7 @@
 				</div>
 
 				<div class = "workspace_space" id = "workspace_space">
-
+					
 				</div>
 			</div>
 		</div>

@@ -18,6 +18,7 @@ class MethodAbstraction {
 function deepCopy (obj) {
 	// This is a fucking atrocity
 	return JSON.parse (JSON.stringify (obj));
+	// An industry standart too apparently
 }
 
 
@@ -227,6 +228,8 @@ class MessageProbabilityEntry {
 
 class Messages {
 	constructor () {
+		this.elem = document.getElementById ("probs_box")
+
 		this.addMessageButton = document.getElementById ("add_prob_button");
 		this.addMessageButton.addEventListener ('click', () => { this.addMessage(); });
 
@@ -429,6 +432,14 @@ class Messages {
 		let power = this.getMultiplication();
 		return this.raiseProbabilityListToPower (probList, power);
 	}
+
+	showSelf () {
+		this.elem.classList.remove ("mobile_out_of_focus");
+	}
+
+	hideSelf () {
+		this.elem.classList.add ("mobile_out_of_focus");
+	}
 }
 
 
@@ -445,6 +456,7 @@ class AlgoUI {
 	async callMehtod (method) {
 		if (this.messages.checkMessages()) {
 			this.workspace.clear();
+			this.switchToWorkspace();
 			await this.workspace.loading();
 			this.doWork (method).then (
 				() => {
@@ -452,6 +464,20 @@ class AlgoUI {
 				}
 			);
 		}
+	}
+
+	switchToWorkspace () {
+		this.messages.hideSelf();
+		this.workspace.showSelf (
+			() => {
+				this.switchToProbs();
+			}
+		);
+	}
+
+	switchToProbs () {
+		this.workspace.hideSelf();
+		this.messages.showSelf();
 	}
 
 	async doWork (method) {
@@ -468,7 +494,7 @@ function setupUI () {
 async function waitForAlgoUI () {
 	do {
 		if (algoUI != undefined) return;
-		await new Promise (resolve => setTimeout (resolve, 10)); // Wait for 10ms
+		await new Promise (resolve => setTimeout (resolve, )); // Wait for 10ms
 	} while (1);
 }
 
