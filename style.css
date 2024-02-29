@@ -488,7 +488,7 @@ input[type=number] {
 
 	.workspace_space {
 		justify-content: center;
-		padding-bottom: 135px;
+		padding-bottom: 20vh;
 	}
 
 	.ws_var {

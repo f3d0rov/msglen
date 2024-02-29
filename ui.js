@@ -81,6 +81,12 @@ class MessageProbabilityEntry {
 
 	focus () {
 		this.inputElem.focus();
+
+		this.inputElem.scrollIntoView ({
+			behavior: "smooth",
+			block: "center" 
+		});
+
 		if (this.inputElem.value.startsWith ("0."))
 			this.inputElem.setSelectionRange (2, 30000);
 		else
@@ -273,8 +279,8 @@ class Messages {
 			"x",
 			focus,
 			suggestVal,
-			() => { this.nextMessage();},
-			(last) => { this.setNewRoot(last);},
+			() => { this.nextMessage(); },
+			(last) => { this.setNewRoot(last); },
 			() => { this.checkMessages(); }
 		);
 		this.lastMessage = newMessage;
