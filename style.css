@@ -21,6 +21,21 @@
 	-o-user-select: none;
 }
 
+.scrollbar {
+	--scrollbar-color-thumb: var(--foreground-minor);
+    --scrollbar-color-track: var(--background-minor);
+	scrollbar-color: var(--foreground-minor) var(--background-minor);
+	
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+	background: var(--foreground-minor);
+}
+
+.scrollbar::-webkit-scrollbar-track {
+	background: var(--background-minor);
+}
+
 
 .template {
 	display: none !important;

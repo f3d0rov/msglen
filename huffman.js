@@ -1,4 +1,6 @@
 
+var huffmanIndexSeparator = '';
+
 class HuffmanTreeNode {
 	constructor (branch1, branch2) {
 		// Make the more probable branch the left one
@@ -13,7 +15,7 @@ class HuffmanTreeNode {
 			this.rightBranch = branch1;
 		}
 
-		this.branchIndex = '' + this.leftBranch.getVarIndex().index + this.rightBranch.getVarIndex().index;
+		this.branchIndex = '' + this.leftBranch.getVarIndex().index + huffmanIndexSeparator + this.rightBranch.getVarIndex().index;
 	}
 
 	totalProbability () {
@@ -73,6 +75,7 @@ class HuffmanTreeLeaf {
 	}
 }
 
+
 class HuffmanCodingAlgo {
 	name () {
 		return "Хаффман";
@@ -93,17 +96,24 @@ class HuffmanCodingAlgo {
 			"p(" + workspace.getIndexedVariableHTML ({name: varName, index: "i"}) + ")"
 		]);
 
+
+		let count = 0;
 		for (let i of branches) {
 			newTable.addLine ([
 				i.name (workspace),
 				i.totalProbability().toString()
 			]);
-		}
 
+			if (this.lastFusedNodeIndex === i.branchIndex) {
+				newTable.highlightLine (count);
+			}
+
+			count++;
+		}
+	
 		// Highlight the next joining branches
 		if (branches.length > 1) {
-			newTable.highlightLine (branches.length - 1);
-			newTable.highlightLine (branches.length - 2);
+			newTable.separatorBeforeLine (branches.length - 2);
 		}
 	}
 
@@ -111,17 +121,14 @@ class HuffmanCodingAlgo {
 		branches.sort ((a, b) => {
 			return b.totalProbability().comparedTo (a.totalProbability());
 		});
-		for (let i of branches) {
-			console.log (i.totalProbability().toString());
-		}
 	}
 
 	fuseLastBranches (branches) {
-		this.sortBranches (branches);
 		if (branches.length > 1) {
 			let newNode = new HuffmanTreeNode (branches [branches.length - 2], branches [branches.length - 1]);
 			// Remove two last branches and add the new node
 			branches.splice (branches.length - 2, 2, newNode);
+			this.lastFusedNodeIndex = newNode.branchIndex;
 		}
 	}
 
@@ -150,6 +157,9 @@ class HuffmanCodingAlgo {
 	}
 	
 	work (probabilityList, workspace) {
+		huffmanIndexSeparator = (probabilityList.length > 9) ? ":" : "";
+		this.lastFusedNodeIndex = null;
+
 		// Display the provided values
 		createTableForProbabilityList (probabilityList, `Заданные значения p(${getVarName (probabilityList)})`, workspace);
 
@@ -167,6 +177,7 @@ class HuffmanCodingAlgo {
 		while (branches.length > 1) {
 			this.listBranches (branches, workspace, `Шаг #${stepCount}`);
 			this.fuseLastBranches (branches);
+			this.sortBranches (branches);
 			stepCount += 1;
 		}
 		this.listBranches (branches, workspace, `Шаг #${stepCount}`);

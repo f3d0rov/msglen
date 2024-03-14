@@ -21,7 +21,7 @@
 		<!-- ??? Layout gets squished when generating new, longer sequences -->
 		<!-- !!! No clue as to why -->
 		<div class = "msglen_layout">
-			<div id = "probs_box">
+			<div id = "probs_box" class = "scrollbar">
 				<div id = "prob_template" class = "prob_entry prob_entry_width template">
 					<div class = "prob_name">
 						<span class = "prob_op"> p( </span>
@@ -49,7 +49,7 @@
 					<div id = "error_msg_text" class = "noselect"> ??? </div> 
 				</div>
 				
-				<div id = "mult_error_msg" class = "add_prob_button prob_entry_width template">
+				<div id = "mult_error_msg" class = "add_prob_button prob_entry_width error_msg template">
 					<div id = "mult_error_msg_text" class = "noselect"> Некорректная кратность </div> 
 				</div>
 
@@ -70,7 +70,7 @@
 				<div id = "probs_box_padder" class = "prob_entry_width"></div>
 			</div>
 
-			<div class = "msglen_workspace">
+			<div class = "msglen_workspace scrollbar">
 				<div class = "workspace_loading template" id = "loading_overlay">
 					<div class = "workspace_loading_bg"></div>
 					<img src = "res/spinner.svg" class = "workspace_spinner">
